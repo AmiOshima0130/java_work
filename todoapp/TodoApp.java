@@ -88,16 +88,16 @@ public class TodoApp {
 
 		System.out.println("****TodoApp****");
 		System.out.println("Todoは1件もありません。");
-		
+
 		int select = 0;
-		
+
 		while (true) {
 			//まずは「4/終了」が押されたときの処理を書く
 			System.out.println("——操作を入力してください。——");
 			System.out.println("1/登録 2/重要度変更 3/削除 4/終了>");
 			select = sc.nextInt();
 			sc.nextLine();
-			
+
 			if (select == 4) {
 				System.out.println("アプリケーションを終了します。");
 				return;
@@ -121,110 +121,106 @@ public class TodoApp {
 					System.out.println("1件追加しました。");
 
 					//ArrayListの要素をフォーマットして表示する「ex.0・・・ミルクを買う/重要度:3」
-					for(int i=0; i<list.size(); i++) {
+					for (int i = 0; i < list.size(); i++) {
 						System.out.println(String.format("%d・・・%s%n", i, list.get(i).showResult()));
 					}
-				} 
+				}
 				//listの要素が1以上だった時
-				else if(list.size() >= 1){
+				else if (list.size() >= 1) {
 					System.out.println("新規Todoを作成します。");
 					System.out.println("Todo内容を入力してください。>");
 					String contents = sc.nextLine();
-					
+
 					System.out.println("重要度を1~10(最大)で入力してください。>");
 					int importance = sc.nextInt();
-					
+
 					//Todo内容と重要度を受け取り、todoインスタンスを生成し、listに追加する。
 					Todo todo = new Todo(contents, importance);
 					list.add(todo);
-					
+
 					System.out.println("1件追加しました。");
-					
+
 					//ArrayListの要素をフォーマットして表示する「ex.0・・・ミルクを買う/重要度:3」
-					for(int i=0; i<list.size(); i++) {
+					for (int i = 0; i < list.size(); i++) {
 						System.out.println(String.format("%d・・・%s%n", i, list.get(i).showResult()));
 					}
-					
+
 					//重要度ごとにソートを呼び出す
 					sortTodo(list);
 				}
-			//2/重要度変更を選んだ時の処理
-			} else if(select == 2) {
-				System.out.printf("重要度を変更します。番号を入力してください。0~%d>>",list.size()-1);
+				//2/重要度変更を選んだ時の処理
+			} else if (select == 2) {
+				System.out.printf("重要度を変更します。番号を入力してください。0~%d>>", list.size() - 1);
 				int no = sc.nextInt();
 				sc.nextLine();//改行コードをクリア
 				//ユーザーが選択した番号 no に対応する Todo オブジェクトを list.get(no) で取得
 				Todo t = list.get(no);
-			    System.out.print("重要度を再設定してください>>");
-			    //取得した Todo オブジェクトの changeImportance メソッドを呼び出し、新しい重要度を設定します。
-			    int importance = sc.nextInt();
-			    t.changeImportance(importance);
-				
-			    sortTodo(list);
-			    
-			    for(int i=0; i<list.size(); i++) {
+				System.out.print("重要度を再設定してください>>");
+				//取得した Todo オブジェクトの changeImportance メソッドを呼び出し、新しい重要度を設定します。
+				int importance = sc.nextInt();
+				t.changeImportance(importance);
+
+				sortTodo(list);
+
+				for (int i = 0; i < list.size(); i++) {
 					System.out.println(String.format("%d・・・%s%n", i, list.get(i).showResult()));
 				}
-			//3/削除を選んだ時の処理
-			} else if(select == 3) {
-				System.out.printf("Todoを削除します。番号を入力してください。0~%d>", list.size()-1);
+				//3/削除を選んだ時の処理
+			} else if (select == 3) {
+				System.out.printf("Todoを削除します。番号を入力してください。0~%d>", list.size() - 1);
 				int no = sc.nextInt();
 				sc.nextLine();//改行コードをクリア
-		
+
 				list.remove(no);
 				System.out.print("1件削除しました。");
-			    
-			    for(int i=0; i<list.size(); i++) {
+
+				for (int i = 0; i < list.size(); i++) {
 					System.out.println(String.format("%d・・・%s%n", i, list.get(i).showResult()));
 				}
-			  //4/終了を選んだ時の処理
-			} else if(select == 4) {
-				System.out.println("アプリケーションを終了します");
 			}
 		}
-		
 	}
+
 	//ソートするメソッド
 	public static void sortTodo(ArrayList<Todo> list) {
-		for(int i = 0; i < list.size() -1; i++) {
-			for(int j = i + 1; j < list.size(); j++) {
-				if(list.get(i).importance < list.get(j).importance) {
+		for (int i = 0; i < list.size() - 1; i++) {
+			for (int j = i + 1; j < list.size(); j++) {
+				if (list.get(i).importance < list.get(j).importance) {
 					Todo temporary = list.get(i);//一時的に保存
 					//i 番目の要素に j 番目の要素の値をセットします。この時点で i 番目の要素の値が変わります。
 					list.set(i, list.get(j));
 					//j 番目の要素に temp の値をセットします。ここで temp に保存されていた元の i 番目の要素の値が j 番目の要素に移動します。
 					list.set(i, temporary);
-					
+
 				}
 			}
 		}
 	}
 }
 
-
 //todoクラス
 class Todo {
 	//フィールド
 	String contents;//内容
 	int importance;//重要度
-	
+
 	//コンストラクタは、newキーワードを使用してオブジェクトを生成する際に呼び出されます
 	//今回は(名前、種類)を指定してインスタンスを生成できるようにする
-	
+
 	public Todo(String contents, int importance) {
 		this.contents = contents;
 		this.importance = importance;
 	}
-	
+
 	//自分自身の情報を文字列として表示させるメソッド「ex.ミルクを買う/重要度:3」
 	public String showResult() {
 		return String.format("%s / 重要度 : %d", contents, importance);
 	}
-	
+
 	//重要度を変更するメソッド
 	//ToDoの重要度を変更するためのメソッドです。新しい重要度を引数として受け取り、それをToDoオブジェクトの importance フィールドに設定
-	public void changeImportance(int importance){
-	    this.importance=importance;
-	    System.out.println("重要度を変更しました。");
-	  }
+	public void changeImportance(int importance) {
+		this.importance = importance;
+		System.out.println("重要度を変更しました。");
+	}
 }
