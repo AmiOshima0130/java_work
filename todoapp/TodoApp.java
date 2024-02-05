@@ -68,7 +68,7 @@
 //4が押されたときは「アプリケーションを終了します」と表示する。
 //アプリケーションを終了する。
 
-package todoapp;
+package java_work0202;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -150,18 +150,39 @@ public class TodoApp {
 				}
 			//2/重要度変更を選んだ時の処理
 			} else if(select == 2) {
-				System.out.println("重要度を再設定してください。>");
+				System.out.printf("重要度を変更します。番号を入力してください。0~%d>>",list.size()-1);
 				int no = sc.nextInt();
 				sc.nextLine();//改行コードをクリア
-				int newImportance = sc.nextInt();
-				sc.nextLine();
-				list.get(no).changeImportance();
+				//ユーザーが選択した番号 no に対応する Todo オブジェクトを list.get(no) で取得
+				Todo t = list.get(no);
+			    System.out.print("重要度を再設定してください>>");
+			    //取得した Todo オブジェクトの changeImportance メソッドを呼び出し、新しい重要度を設定します。
+			    int importance = sc.nextInt();
+			    t.changeImportance(importance);
 				
-				System.out.println("重要度が変更されました");
-				sortTodo(list);
+			    sortTodo(list);
+			    
+			    for(int i=0; i<list.size(); i++) {
+					System.out.println(String.format("%d・・・%s%n", i, list.get(i).showResult()));
+				}
+			//3/削除を選んだ時の処理
+			} else if(select == 3) {
+				System.out.printf("Todoを削除します。番号を入力してください。0~%d>", list.size()-1);
+				int no = sc.nextInt();
+				sc.nextLine();//改行コードをクリア
+		
+				list.remove(no);
+				System.out.print("1件削除しました。");
+			    
+			    for(int i=0; i<list.size(); i++) {
+					System.out.println(String.format("%d・・・%s%n", i, list.get(i).showResult()));
+				}
+			  //4/終了を選んだ時の処理
+			} else if(select == 4) {
+				System.out.println("アプリケーションを終了します");
 			}
 		}
-
+		
 	}
 	//ソートするメソッド
 	public static void sortTodo(ArrayList<Todo> list) {
@@ -200,12 +221,10 @@ class Todo {
 		return String.format("%s / 重要度 : %d", contents, importance);
 	}
 	
-	//重要度は自分のフィールドだけど、操作されるので、インスタンスメソッドとして作る
-	//「2/重要度変更」で重要度が変更されたときの処理
-	public void changeImportance(int i, int no) {
-		
-		
-		
-		
-	}
+	//重要度を変更するメソッド
+	//ToDoの重要度を変更するためのメソッドです。新しい重要度を引数として受け取り、それをToDoオブジェクトの importance フィールドに設定
+	public void changeImportance(int importance){
+	    this.importance=importance;
+	    System.out.println("重要度を変更しました。");
+	  }
 }
