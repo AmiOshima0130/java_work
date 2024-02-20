@@ -20,10 +20,11 @@
     String IPaddress = request.getRemoteAddr();//IPアドレスを取得
     String cliantName = request.getRemoteHost();//クライアント名を取得
     String URI = request.getRequestURI();
+    String userAgent = request.getHeader("User-Agent");//アクセスしているブラウザを取得
     Date datetime = new Date();// 現在の日時を取得
     SimpleDateFormat format_date = new SimpleDateFormat("yyyy/MM/dd/ HH:mm:ss");// 日付フォーマット用のオブジェクトを作成
     String formatted_date = format_date.format(datetime);// 日時を指定したフォーマットに変換 
-    String[] postDatas = new String[]{author, postname, posttext, formatted_date, IPaddress, cliantName, URI};
+    String[] postDatas = new String[]{author, postname, posttext, formatted_date, IPaddress, cliantName, URI, userAgent};
 
     if(postname.isEmpty() || posttext.isEmpty() || author.isEmpty()) {
         error = "投稿者・記事名・内容のどれかが入力されていません";
