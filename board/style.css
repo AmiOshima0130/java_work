@@ -1,0 +1,45 @@
+/*============================
+=========記事を投稿する========
+============================*/
+body {
+    color: #333;
+}
+
+.form {
+    margin: 20px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%; /* 幅を100%に設定 */
+    padding: 10px; /* 上下左右のパディングを追加 */
+    border: 1px solid #ccc; /* 枠線を追加 */
+    border-radius: 5px; 
+    box-sizing: border-box; /* ボックスモデルのボーダーボックスを使用 */
+    margin-bottom: 10px; /* 下部に余白を追加 */
+}
+
+input[type="submit"] {
+    background-color: #333; /* 背景色を設定 */
+    color: white; /* テキスト色を設定 */
+    padding: 10px 20px; /* パディングを追加 */
+    border: none; /* ボーダーを設定 */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* マウスカーソルをポインターに設定 */
+}
+
+/* ボタンがホバーされたとき */
+input[type="submit"]:hover {
+    opacity: 0.5; /* ホバー時の背景色を設定 */
+}
+
+/*============================
+======投稿された記事一覧=======
+============================*/
+.posts {
+    margin: 20px;
+}
+
+p.name {
+    font-weight: bold;
+}
